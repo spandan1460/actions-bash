@@ -60,4 +60,3 @@ jobs:
             - name: Print Publish Profile
               run: |
                 echo "Publish Profile is ${{ steps.setPublishProfile.outputs.publishProfile }}"
-                echo "Publish Profile is $publishProfile"
