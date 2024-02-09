@@ -25,6 +25,9 @@ on:
 jobs:
     print-variable:
         runs-on: ubuntu-latest
+        environment: 
+            name: 'Sandbox01'
+            url: https://sandbox.azure.com
         steps:
             # - name: Set Publish Profile
             #   id: setPublishProfile
