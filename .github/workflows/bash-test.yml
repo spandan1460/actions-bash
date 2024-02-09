@@ -26,15 +26,29 @@ jobs:
     print-variable:
         runs-on: ubuntu-latest
         steps:
-            - name: Set Publish Profile
+            # - name: Set Publish Profile
+            #   id: setPublishProfile
+            #   run: |
+            #     if [[ "${{ github.event.inputs.appName }}" == "visibleapisandbox01" ]]  &&  [[ "${{ github.event.inputs.slot }}" == "main" ]]; then
+            #     echo "::set-output name=publishProfile::${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX01 }}"
+            #     elif [[ "${{ github.event.inputs.appName }}" == "visibleapisandbox01" ]]  &&  [[ "${{ github.event.inputs.slot }}" == "testing" ]]; then
+            #     echo "::set-output name=publishProfile::${{ secrets.PUBLISH_PROFILE_TESTING }}"
+            #     elif [[ "${{ github.event.inputs.appName }}" == "visibleapisandbox02" ]]  &&  [[ "${{ github.event.inputs.slot }}" == "stage" ]]; then
+            #     echo "::set-output name=publishProfile::${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX02 }}"
+            #     else
+            #     echo "Conditions not met correctly. Please check the inputs and provide correct conditions."
+            #     exit 1
+            #     fi
+
+            - name: Set Publish Profile Check point
               id: setPublishProfile
               run: |
                 if [[ "${{ github.event.inputs.appName }}" == "visibleapisandbox01" ]]  &&  [[ "${{ github.event.inputs.slot }}" == "main" ]]; then
-                echo "::set-output name=publishProfile::${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX01 }}"
+                echo "::set-output name=publishProfile::AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX01"
                 elif [[ "${{ github.event.inputs.appName }}" == "visibleapisandbox01" ]]  &&  [[ "${{ github.event.inputs.slot }}" == "testing" ]]; then
-                echo "::set-output name=publishProfile::${{ secrets.PUBLISH_PROFILE_TESTING }}"
+                echo "::set-output name=publishProfile::PUBLISH_PROFILE_TESTING"
                 elif [[ "${{ github.event.inputs.appName }}" == "visibleapisandbox02" ]]  &&  [[ "${{ github.event.inputs.slot }}" == "stage" ]]; then
-                echo "::set-output name=publishProfile::${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX02 }}"
+                echo "::set-output name=publishProfile::AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX02"
                 else
                 echo "Conditions not met correctly. Please check the inputs and provide correct conditions."
                 exit 1
