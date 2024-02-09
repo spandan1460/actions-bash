@@ -47,11 +47,11 @@ jobs:
               id: setPublishProfile
               run: |
                 if [[ "${{ github.event.inputs.appName }}" == "visibleapisandbox01" ]]  &&  [[ "${{ github.event.inputs.slot }}" == "main" ]]; then
-                echo "{publishProfile}= {AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX01}" >> $GITHUB_OUTPUT
+                echo "publishProfile= AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX01" >> $GITHUB_OUTPUT
                 elif [[ "${{ github.event.inputs.appName }}" == "visibleapisandbox01" ]]  &&  [[ "${{ github.event.inputs.slot }}" == "testing" ]]; then
-                echo "{publishProfile}= {PUBLISH_PROFILE_TESTING}" >> $GITHUB_OUTPUT
+                echo "publishProfile= PUBLISH_PROFILE_TESTING" >> $GITHUB_OUTPUT
                 elif [[ "${{ github.event.inputs.appName }}" == "visibleapisandbox02" ]]  &&  [[ "${{ github.event.inputs.slot }}" == "stage" ]]; then
-                echo "{publishProfile}= {AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX02}" >> $GITHUB_OUTPUT
+                echo "publishProfile= AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX02" >> $GITHUB_OUTPUT
                 else
                 echo "Conditions not met correctly. Please check the inputs and provide correct conditions."
                 exit 1
