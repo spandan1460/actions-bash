@@ -58,4 +58,6 @@ jobs:
                 fi
             
             - name: Print Publish Profile
-              run: echo "Publish Profile is ${{ steps.setPublishProfile.outputs.publishProfile }}"
+              run: |
+                echo "Publish Profile is ${{ steps.setPublishProfile.outputs.publishProfile }}"
+                echo "Publish Profile is $publishProfile"
