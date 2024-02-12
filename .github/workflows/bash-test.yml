@@ -67,13 +67,13 @@ jobs:
         - name: Set Publish Profile Check point in windows
           id: setPublishProfile
           run: |
-              if (($env: github.event.inputs.appName -eq "visibleapisandbox01") -and  ($env:github.event.inputs.slot == "main")) {
+              if ((${{github.event.inputs.appName}} -eq "visibleapisandbox01") -and  (${{github.event.inputs.slot}} == "main")) {
               Write-Host "::set-output name=publishProfile::${env:AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX01_MAIN}"
               }
-              elseif (($env:github_event_inputs_appName -eq "visibleapisandbox01") -and ($env:github_event_inputs_slot -eq "testing")) {
+              elseif ((${{github.event.inputs.appName}} -eq "visibleapisandbox01") -and (${{github.event.inputs.slot}} -eq "testing")) {
               Write-Host "::set-output name=publishProfile::${env:AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX01_TESTING}"
               }
-              elseif (($env:github_event_inputs_appName -eq "visibleapisandbox02") -and ($env:github_event_inputs_slot -eq "stage")) {
+              elseif ((${{github.event.inputs.appName}} -eq "visibleapisandbox02") -and (${{github.event.inputs.slot}} -eq "stage")) {
               Add-Content -Path $env:GITHUB_OUTPUT -Value "publishProfile= AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX02"
               }
               else {
