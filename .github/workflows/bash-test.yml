@@ -1,5 +1,7 @@
 name: Test bash actions in Github Actions
 
+run-name: This is the ${{github.event.inputs.appName}} with slot ${{github.event.inputs.slot}} by ${{github.actor}}
+
 on:
     workflow_dispatch:
         inputs :
