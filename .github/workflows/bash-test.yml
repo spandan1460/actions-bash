@@ -60,3 +60,23 @@ jobs:
             - name: Print Publish Profile
               run: |
                 echo "Publish Profile is ${{ steps.setPublishProfile.outputs.publishProfile }}"
+
+    print-variable-windows:
+      runs-on: windows-latest
+      steps:
+        - name: Set Publish Profile Check point in windows
+          id: setPublishProfile
+          run: |
+              if (($env: github.event.inputs.appName -eq "visibleapisandbox01") -and  ($env:github.event.inputs.slot == "main")) {
+              Write-Host "::set-output name=publishProfile::${env:AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX01_MAIN}"
+              }
+              elseif (($env:github_event_inputs_appName -eq "visibleapisandbox01") -and ($env:github_event_inputs_slot -eq "testing")) {
+              Write-Host "::set-output name=publishProfile::${env:AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX01_TESTING}"
+              }
+              elseif (($env:github_event_inputs_appName -eq "visibleapisandbox02") -and ($env:github_event_inputs_slot -eq "stage")) {
+              Add-Content -Path $env:GITHUB_OUTPUT -Value "publishProfile= AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX02"
+              }
+              else {
+                Write-Host "Conditions not met correctly. Please check the inputs and provide correct conditions."
+                exit 1
+              }
