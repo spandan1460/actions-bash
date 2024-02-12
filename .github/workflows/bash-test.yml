@@ -62,6 +62,7 @@ jobs:
                 echo "Publish Profile is ${{ steps.setPublishProfile.outputs.publishProfile }}"
 
     print-variable-windows:
+      needs: print-variable
       runs-on: windows-latest
       steps:
         - name: Set Publish Profile Check point in windows
