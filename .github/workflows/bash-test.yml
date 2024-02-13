@@ -71,7 +71,7 @@ jobs:
           id: setPublishProfile
           run: |
               if (("${{github.event.inputs.appName}}" -eq "visibleapisandbox01") -and  ("${{github.event.inputs.slot}}" -eq "main")) {
-              Add-Content -Path $env:GITHUB_OUTPUT -Value "publishProfile= AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX01_MAIN"
+              Add-Content -Path $env:GITHUB_OUTPUT -Value "publishProfile= '${{secrets.AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX01_MAIN }}'"
               }
               elseif (("${{github.event.inputs.appName}}" -eq "visibleapisandbox01") -and ("${{github.event.inputs.slot}}" -eq "testing")) {
               Add-Content -Path $env:GITHUB_OUTPUT -Value "publishProfile= AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX01_TESTING"
