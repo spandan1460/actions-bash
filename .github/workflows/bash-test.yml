@@ -29,7 +29,7 @@ jobs:
 
             - name: Get the changed files
               run: |
-                changed_files=$(git log --name-only --pretty=format: --since="24 hours ago" windows-bash)
+                changed_files=$(git log --name-only --pretty=format: --since="2 minutes ago" windows-bash)
                 filtered_files=$(echo "$changed_files" | { grep '\.yml' || true; })
                 echo "$filtered_files"
                 count=$(echo ${#filtered_files})
