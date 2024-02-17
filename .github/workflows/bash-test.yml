@@ -43,3 +43,5 @@ jobs:
                 count=$(echo ${#changed_files})
                 mapfile -t array <<< "$changed_files"
                 echo "${array[@]}"
+                json=$(printf '%s\n' "${array[@]}" | jq -R . | jq -s .)
+                echo "$json"
