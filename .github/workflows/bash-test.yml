@@ -1,5 +1,7 @@
 name: Test bash actions in Github Actions
 
+run-name: This is the ${{github.event.inputs.appName}} with slot ${{github.event.inputs.slot}} by ${{github.actor}}
+
 on:
     workflow_dispatch:
         inputs :
@@ -47,7 +49,7 @@ jobs:
               id: setPublishProfile
               run: |
                 if [[ "${{ github.event.inputs.appName }}" == "visibleapisandbox01" ]]  &&  [[ "${{ github.event.inputs.slot }}" == "main" ]]; then
-                echo "publishProfile= AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX01" >> $GITHUB_OUTPUT
+                echo `publishProfile= ${{secrets.AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX01_MAIN}}` >> $GITHUB_OUTPUT
                 elif [[ "${{ github.event.inputs.appName }}" == "visibleapisandbox01" ]]  &&  [[ "${{ github.event.inputs.slot }}" == "testing" ]]; then
                 echo "publishProfile= PUBLISH_PROFILE_TESTING" >> $GITHUB_OUTPUT
                 elif [[ "${{ github.event.inputs.appName }}" == "visibleapisandbox02" ]]  &&  [[ "${{ github.event.inputs.slot }}" == "stage" ]]; then
@@ -60,3 +62,25 @@ jobs:
             - name: Print Publish Profile
               run: |
                 echo "Publish Profile is ${{ steps.setPublishProfile.outputs.publishProfile }}"
+
+    print-variable-windows:
+      needs: print-variable
+      runs-on: windows-latest
+      steps:
+        - name: Set Publish Profile Check point in windows
+          id: setPublishProfile
+          run: |
+              if (("${{github.event.inputs.appName}}" -eq "visibleapisandbox01") -and  ("${{github.event.inputs.slot}}" -eq "main")) {
+                $publishProfileValue = `publishProfile= ${{secrets.AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX01_MAIN }}`
+                Add-Content -Path $env:GITHUB_OUTPUT -Value $publishProfileValue
+              }
+              elseif (("${{github.event.inputs.appName}}" -eq "visibleapisandbox01") -and ("${{github.event.inputs.slot}}" -eq "testing")) {
+              Add-Content -Path $env:GITHUB_OUTPUT -Value "publishProfile= AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX01_TESTING"
+              }
+              elseif (("${{github.event.inputs.appName}}" -eq "visibleapisandbox02") -and ("${{github.event.inputs.slot}}" -eq "stage")) {
+              Add-Content -Path $env:GITHUB_OUTPUT -Value "publishProfile= AZUREAPPSERVICE_PUBLISHPROFILE_SANDBOX02"
+              }
+              else {
+                Write-Host "Conditions not met correctly. Please check the inputs and provide correct conditions."
+                exit 1
+              }
