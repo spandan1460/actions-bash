@@ -23,7 +23,6 @@ jobs:
 
             - name: Get the changed files
               run: |
-                cd "${{ github.workspace }}"
                 changed_files=$(git log --name-only --pretty=format: --since="24 hours ago" main)
                 filtered_files=$(echo "$changed_files" | { grep '\.yml' || true; })
                 echo "$filtered_files"
