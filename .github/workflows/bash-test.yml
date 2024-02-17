@@ -21,6 +21,12 @@ jobs:
                 echo "${{github.event.inputs.Name}}"
                 echo "${{github.repository}}"
 
+            - name: Checkout repository
+              uses: actions/checkout@v3
+              with: 
+                clean: false
+                fetch-depth: 0
+
             - name: Get the changed files
               run: |
                 changed_files=$(git log --name-only --pretty=format: --since="24 hours ago" main)
