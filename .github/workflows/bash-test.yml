@@ -17,4 +17,4 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Print the name
-              run: echo "The name is ${{github.event.inputs.Name}}"
+              run: echo "${{github.event.inputs.Name}}"
