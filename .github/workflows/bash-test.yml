@@ -42,5 +42,5 @@ jobs:
                 changed_files=$filtered_files
                 count=$(echo ${#changed_files})
                 mapfile -t array <<< "$changed_files"
-                echo "${array[@]}"
                 joined_array=$(printf ",%s," "${array[@]}")
+                echo "$joined_array"
