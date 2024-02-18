@@ -29,7 +29,7 @@ jobs:
 
             - name: Get the changed files
               run: |
-                changed_files=$(git log --name-only --pretty=format: --since="24 hours ago" main)
+                changed_files=$(git log --name-only --pretty=format: --since="24 hours ago" windows-bash)
                 filtered_files=$(echo "$changed_files" | { grep '\.yml' || true; })
                 echo "$filtered_files"
                 count=$(echo ${#filtered_files})
@@ -43,14 +43,4 @@ jobs:
                 count=$(echo ${#changed_files})
                 mapfile -t array <<< "$changed_files"
                 echo "${array[@]}"
-                json=$(printf '%s\n' "${array[@]}" | jq -R . | jq -s .)
-                echo "$json"
-                payload='{"ref": "main","inputs": {"file": "'${array[@]}'"}}'
-                echo "$payload"
-                curl -X POST \
-                    -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-                    -H "Accept: application/vnd.github.everest-preview+json" \
-                    -H "Content-Type: application/json" \
-                    -H "X-GitHub-Api-Version: 2022-11-28" \
-                    -d "$payload" \
-                    https://api.github.com/repos/${{ github.repository }}/actions/workflows/pass_workflow.yml/dispatches
+                joined_array=$(printf ",%s," "${array[@]}")
